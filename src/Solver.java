@@ -21,7 +21,7 @@ public class Solver implements AM {
 
         System.out.println("Inited");
         System.out.println("Workers: " + workers.size());
-        int n = readInput(info);
+        int n = readInput();
 
         // Generate random numbers
         List<Integer> numbers = generateRandomNumbers(n);
@@ -52,7 +52,7 @@ public class Solver implements AM {
         List<Integer> reduced = myreduce(mapped);
 
         // Output: Write the sorted numbers to file
-        writeOutput(reduced, info);
+        writeOutput(reduced);
 
         System.out.println("Job Finished");
         System.out.println("Elapsed Time: " + totalTime + " milliseconds");
@@ -82,7 +82,7 @@ public class Solver implements AM {
         return chunks;
     }
 
-    private int readInput(AMInfo info) {
+    private int readInput() {
         int n = 0;
         try {
             BufferedReader reader = new BufferedReader(new FileReader("input.txt"));
@@ -94,7 +94,7 @@ public class Solver implements AM {
         return n;
     }
 
-    private void writeOutput(List<Integer> numbers, AMInfo info) {
+    private void writeOutput(List<Integer> numbers) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
             for (int number : numbers) {
