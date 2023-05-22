@@ -3,7 +3,7 @@ all: run
 clean:
 	rm -f out/Solver.jar out/Worker.jar
 
-out/Solver.jar: out/parcs.jar src/Main.java
+out/Solver.jar: out/parcs.jar src/Solver.java
 	@javac -cp out/parcs.jar src/Solver.java
 	@jar cf out/Solver.jar -C src Solver.class
 	@rm -f src/Solver.class
