@@ -3,9 +3,9 @@ all: run
 clean:
 	rm -rf out/Solver.jar out/Worker.jar out/parcs.jar
 
-out/parcs.jar: src/parcs/*.java
+out/parcs.jar: src/Solver.java src/Worker.java
 	@mkdir -p out/parcs
-	@javac -d out/parcs src/parcs/*.java
+	@javac -d out/parcs src/parcs/File1.java src/parcs/File2.java
 	@jar cf $@ -C out/parcs .
 
 out/Solver.jar: out/parcs.jar src/Solver.java
