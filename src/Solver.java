@@ -1,13 +1,10 @@
-import parcs.*;
+import parcs.AM;
+import parcs.AMInfo;
+import parcs.channel;
+import parcs.point;
 
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.io.*;
+import java.util.*;
 
 public class Solver implements AM {
 
@@ -38,31 +35,28 @@ public class Solver implements AM {
 
         for (int i = 0; i < workers.size(); i++) {
             List<Integer> chunk = chunks.get(i);
-            Point p = info.createPoint();
-            p.addLocal("chunk", chunk);
-            p.addLocal("worker", workers.get(i));
+            point p = info.createPoint();
+            channel c = p.createChannel();
             p.execute("WorkerTask");
-        }
-
-        List<List<Integer>> sortedChunks = new ArrayList<>();
-        for (int i = 0; i < workers.size(); i++) {
-            Point p = info.receivePoint();
-            List<Integer> sortedChunk = (List<Integer>) p.getLocal("sortedChunk");
-            sortedChunks.add(sortedChunk);
+            c.write(chunk);
+            c.write(workers.get(i));
+            p.join();
+            List<Integer> sortedChunk = c.readObject();
+            mapped.add(sortedChunk);
         }
 
         long endTime = System.currentTimeMillis(); // End time measurement
         long totalTime = endTime - startTime; // Calculate elapsed time
 
         // Reduce: Merge the sorted chunks
-        List<Integer> reduced = myreduce(sortedChunks);
+        List<Integer> reduced = myreduce(mapped);
 
         // Output: Write the sorted numbers to file
         writeOutput(reduced, info);
 
         System.out.println("Job Finished");
         System.out.println("Elapsed Time: " + totalTime + " milliseconds");
-        info.parent.signal();
+        info.parent().signal();
     }
 
     private List<Integer> generateRandomNumbers(int n) {
@@ -123,32 +117,24 @@ public class Solver implements AM {
     }
 
     public static void main(String[] args) {
-        Task task = new Task();
-        task.addJarFile("parcs.jar");
-        task.setEntryPointClassName("Solver");
-        task.setTaskClassName("Solver");
-
-        task.initFromFile("input.txt");
-        task.run();
-        task.writeResultToFile("output.txt");
-        task.end();
+        Solver solver = new Solver();
+        solver.run(new AMInfo(null));
     }
 }
 
 class WorkerTask implements AM {
 
     public void run(AMInfo info) {
-        List<Integer> chunk = (List<Integer>) info.parent.readObject("chunk");
-        Worker worker = (Worker) info.parent.readObject("worker");
+        List<Integer> chunk = (List<Integer>) info.parent().readObject();
+        Worker worker = (Worker) info.parent().readObject();
 
         List<Integer> sortedChunk = worker.mymap(chunk);
 
-        info.parent.write("sortedChunk", sortedChunk);
-        info.parent.returnToParent();
+        info.parent().write(sortedChunk);
     }
 }
 
-class Worker {
+class Worker implements Serializable {
     public List<Integer> mymap(List<Integer> array) {
         // Sorting algorithm (e.g., bubble sort)
         bubbleSort(array);
