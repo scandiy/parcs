@@ -16,4 +16,4 @@ out/Square.jar: out/parcs.jar src/Worker.java
 build: out/Solver.jar out/Worker.jar
 
 run: out/Solver.jar out/Worker.jar
-	@cd out && java -cp 'parcs.jar:Solver.jar' Main
+	@cd out && java -cp 'parcs.jar:Solver.jar' Solver
