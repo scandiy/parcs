@@ -105,7 +105,12 @@ public class Solver {
     public static void main(String[] args) {
         // Create a list of workers
         List<Worker> workers = new ArrayList<>();
+        
         // Add workers to the list (initialize them as needed)
+        Worker worker1 = new Worker();
+        Worker worker2 = new Worker();
+        workers.add(worker1);
+        workers.add(worker2);
 
         // Create a Solver instance and start the sorting process
         Solver solver = new Solver(workers, "input.txt", "output.txt");
