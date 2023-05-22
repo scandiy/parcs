@@ -5,7 +5,7 @@ clean:
 
 out/parcs.jar: src/Solver.java src/Worker.java
 	@mkdir -p out/parcs
-	@javac -d out/parcs src/parcs/File1.java src/parcs/File2.java
+	@javac -d out/parcs src/Solver.java src/Worker.java
 	@jar cf $@ -C out/parcs .
 
 out/Solver.jar: out/parcs.jar src/Solver.java
