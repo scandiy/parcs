@@ -1,7 +1,12 @@
 all: run
 
 clean:
-	rm -rf out/Solver.jar out/Worker.jar
+	rm -rf out/Solver.jar out/Worker.jar out/parcs.jar
+
+out/parcs.jar: src/parcs/*.java
+	@mkdir -p out/parcs
+	@javac -d out/parcs src/parcs/*.java
+	@jar cf $@ -C out/parcs .
 
 out/Solver.jar: out/parcs.jar src/Solver.java
 	@javac -cp out/parcs.jar src/Solver.java
