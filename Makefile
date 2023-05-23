@@ -1,15 +1,18 @@
-all: run
+JAVAC = javac
+JAVA = java
+JFLAGS = -cp .:parcs.jar
+SOURCE_DIR = src
+SOURCE_FILES = $(SOURCE_DIR)/Solver.java $(SOURCE_DIR)/WorkerTask.java $(SOURCE_DIR)/Worker.java
+
+all: compile run
+
+compile:
+	$(JAVAC) $(JFLAGS) $(SOURCE_FILES)
+
+run:
+	$(JAVA) $(JFLAGS) Solver
 
 clean:
-	rm -f out/Solver.jar
+	rm -rf $(SOURCE_DIR)/*.class output.txt
 
-out/Main.jar: out/parcs.jar src/Solver.java
-	@javac -cp out/parcs.jar src/Solver.java
-	@jar cf out/Solver.jar -C src Solver.class
-	@rm -f src/Solver.class
-
-
-build: out/Solver.jar
-
-run: out/Solver.jar
-	@cd out && java -cp 'parcs.jar:Solver.jar' Solver
+.PHONY: all compile run clean
