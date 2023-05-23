@@ -38,10 +38,10 @@ public class Solver implements AM {
             point p = info.createPoint();
             channel c = p.createChannel();
             p.execute("WorkerTask");
-            c.write(chunk);
+            c.write(chunk.toArray(new Integer[chunk.size()]));
             c.write(workers.get(i));
-            p.join();
-            List<Integer> sortedChunk = c.readObject();
+            p.execute("WorkerTask").get();
+            List<Integer> sortedChunk = (List<Integer>) c.readObject();
             mapped.add(sortedChunk);
         }
 
@@ -118,7 +118,7 @@ public class Solver implements AM {
 
     public static void main(String[] args) {
         Solver solver = new Solver();
-        solver.run(new AMInfo(null));
+        solver.run(info.createChildAM());
     }
 }
 
