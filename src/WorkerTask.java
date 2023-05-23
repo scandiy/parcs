@@ -10,6 +10,6 @@ public class WorkerTask implements AM {
         Worker worker = (Worker) info.parent().readObject();
         List<Integer> sortedChunk = worker.mymap(chunk);
 
-        info.parent().write(sortedChunk);
+        info.parent().writeObject(sortedChunk);
     }
 }
