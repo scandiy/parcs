@@ -1,6 +1,6 @@
 JAVAC = javac
 JAVA = java
-JFLAGS = -cp .:parcs.jar
+JFLAGS = -cp .:./parcs.jar
 SOURCE_DIR = src
 SOURCE_FILES = $(SOURCE_DIR)/Solver.java $(SOURCE_DIR)/WorkerTask.java $(SOURCE_DIR)/Worker.java
 
