@@ -18,7 +18,7 @@ public class BubbleSort implements AM {
         }
 
         if (!sorted) {
-            int startIndex = (int) (amInfo.parent.getPlace().pointID() - 1) * (n - 1) / amInfo.parent.getJobList().size();
+            int startIndex = (int) (amInfo.taskID().pointID() - 1) * (n - 1) / amInfo.getJob().getN();
             amInfo.parent.write(array);
             amInfo.parent.write(startIndex);
         } else {
