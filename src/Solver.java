@@ -56,8 +56,7 @@ public class Solver implements AM {
 
         System.out.println("Job Finished");
         System.out.println("Elapsed Time: " + totalTime + " milliseconds");
-        info.parent().write(new Object());
-
+        info.parent().write("");
 
     }
 
@@ -120,7 +119,6 @@ public class Solver implements AM {
 
     public static void main(String[] args) {
         Solver solver = new Solver();
-        solver.run(info.createChildAM());
+        solver.run(new AMInfo(null));
     }
 }
-
