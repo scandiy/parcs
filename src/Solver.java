@@ -6,7 +6,7 @@ public class Solver implements AM {
     public static void main(String[] args) {
         task t = new task();
         t.addJarFile("BubbleSort.jar");
-        new Solver().run(new AMInfo(t, null));
+        (new Solver()).run(new AMInfo(t, null));
         t.end();
     }
 
@@ -20,7 +20,7 @@ public class Solver implements AM {
         int[] array = generateRandomArray(n, min, max);
 
         // Perform parallel bubble sort
-        int workers = info.parent().parent().getN();
+        int workers = info.getJob().getN();
         int chunkSize = (n - 1) / workers + 1;
         boolean sorted = false;
         while (!sorted) {
