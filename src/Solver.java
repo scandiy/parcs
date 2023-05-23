@@ -40,7 +40,7 @@ public class Solver implements AM {
             p.execute("WorkerTask");
             c.write(chunk.toArray(new Integer[chunk.size()]));
             c.write(workers.get(i));
-            p.execute("WorkerTask").get();
+            p.execute("WorkerTask");
             List<Integer> sortedChunk = (List<Integer>) c.readObject();
             mapped.add(sortedChunk);
         }
@@ -56,7 +56,8 @@ public class Solver implements AM {
 
         System.out.println("Job Finished");
         System.out.println("Elapsed Time: " + totalTime + " milliseconds");
-        info.parent().signal();
+        info.parent_read().signal();
+
     }
 
     private List<Integer> generateRandomNumbers(int n) {
