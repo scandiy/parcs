@@ -39,7 +39,7 @@ public class Solver implements AM {
             c.write(array);
             c.write(i * chunkSize);
             c.write(Math.min((i + 1) * chunkSize - 1, n - 1));
-            c.read(); // Read the acknowledgement from BubbleSort
+            c.read(new byte[0]); // Read the acknowledgement from BubbleSort
         }
 
         for (channel channel : channels) {
