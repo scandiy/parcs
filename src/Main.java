@@ -5,7 +5,7 @@ import java.io.File;
 
 import parcs.*;
 
-public class Solver {
+public class Main {
     public static void main(String[] args) throws Exception {
         task curtask = new task();
         curtask.addJarFile("BubbleSort.jar");
