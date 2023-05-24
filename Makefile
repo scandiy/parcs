@@ -1,27 +1,24 @@
-JFLAGS = -cp .:./out/parcs.jar
-SRC_DIR = src
-OUT_DIR = out
+JAVAC_FLAGS = -cp .:./out/parcs.jar
+JAR_FLAGS = cf
+JAVA_FLAGS = -cp .:./out/parcs.jar:./out/Solver.jar
 
-all: run
+all: build run
 
 clean:
-	rm -rf $(OUT_DIR)
+	rm -rf out/*.class out/*.jar
 
-$(OUT_DIR):
-	mkdir -p $(OUT_DIR)
+out/BubbleSort.class: src/BubbleSort.java
+	@javac $(JAVAC_FLAGS) -d out src/BubbleSort.java
 
-$(OUT_DIR)/BubbleSort.class: $(OUT_DIR) $(SRC_DIR)/BubbleSort.java
-	javac $(JFLAGS) -d $(OUT_DIR) $(SRC_DIR)/BubbleSort.java
+out/Solver.class: src/Solver.java out/BubbleSort.class
+	@javac $(JAVAC_FLAGS) -d out src/Solver.java
 
-$(OUT_DIR)/Solver.class: $(OUT_DIR) $(SRC_DIR)/Solver.java $(OUT_DIR)/BubbleSort.class
-	javac $(JFLAGS) -d $(OUT_DIR) $(SRC_DIR)/Solver.java
+out/Solver.jar: out/Solver.class
+	@jar $(JAR_FLAGS) out/Solver.jar -C out Solver.class
 
-$(OUT_DIR)/Solver.jar: $(OUT_DIR)/Solver.class
-	jar cf $(OUT_DIR)/Solver.jar -C $(OUT_DIR) Solver.class
+build: out/Solver.jar
 
-build: $(OUT_DIR)/Solver.jar
-
-run: build
-	cd $(OUT_DIR) && java $(JFLAGS) -cp ../parcs.jar:Solver.jar Solver
+run: out/Solver.jar
+	@cd out && java $(JAVA_FLAGS) Solver
 
 .PHONY: all clean build run
