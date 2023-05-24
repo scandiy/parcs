@@ -1,4 +1,4 @@
-all: run
+all: build
 
 clean:
 	rm -f out/BubbleSort.jar out/Solver.jar
@@ -17,3 +17,11 @@ build: out/BubbleSort.jar out/Solver.jar
 
 run: out/BubbleSort.jar out/Solver.jar
 	@cd out && java -cp 'parcs.jar:BubbleSort.jar' Solver
+
+JFLAGS = -cp .:./parcs.jar
+
+compile:
+	javac $(JFLAGS) src/BubbleSort.java src/Solver.java
+
+run:
+	java $(JFLAGS) Solver
