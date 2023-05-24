@@ -20,7 +20,7 @@ public class Main {
             arr[i] = sc.nextInt();
         }
 
-        int numPoints = 4; // Number of points (daemons) to use
+        int numPoints = 2; // Number of points (daemons) to use
         int batchSize = n / numPoints; // Number of elements to assign to each point
 
         List<point> points = new ArrayList<>();
