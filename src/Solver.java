@@ -65,7 +65,7 @@ public class Solver implements AM {
         }
 
         // Write sorted array to output file
-        writeArrayToFile(array, "sorted.txt");
+        writeArrayToFile(array, "output.txt");
 
         System.out.println("Sorting " + (sorted ? "succeeded" : "failed"));
     }
