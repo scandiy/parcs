@@ -10,11 +10,16 @@ clean:
 $(OUT_DIR):
 	mkdir -p $(OUT_DIR)
 
-$(OUT_DIR)/Solver.jar: $(OUT_DIR)/parcs.jar $(SRC_DIR)/BubbleSort.java $(SRC_DIR)/Solver.java
-	javac $(JFLAGS) $(SRC_DIR)/BubbleSort.java $(SRC_DIR)/Solver.java
-	jar cf $(OUT_DIR)/Solver.jar -C $(SRC_DIR) BubbleSort.class Solver.class
+$(OUT_DIR)/BubbleSort.class: $(OUT_DIR) $(SRC_DIR)/BubbleSort.java
+	javac $(JFLAGS) -d $(OUT_DIR) $(SRC_DIR)/BubbleSort.java
 
-build: $(OUT_DIR) $(OUT_DIR)/Solver.jar
+$(OUT_DIR)/Solver.class: $(OUT_DIR) $(SRC_DIR)/Solver.java $(OUT_DIR)/BubbleSort.class
+	javac $(JFLAGS) -d $(OUT_DIR) $(SRC_DIR)/Solver.java
+
+$(OUT_DIR)/Solver.jar: $(OUT_DIR)/Solver.class
+	jar cf $(OUT_DIR)/Solver.jar -C $(OUT_DIR) Solver.class
+
+build: $(OUT_DIR)/Solver.jar
 
 run: build
 	cd $(OUT_DIR) && java $(JFLAGS) Solver
