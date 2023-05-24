@@ -20,6 +20,8 @@ public class Main implements AM {
             arr[i] = sc.nextInt();
         }
 
+        long startTime = System.nanoTime();
+
         List<channel> channels = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
@@ -30,19 +32,23 @@ public class Main implements AM {
             channels.add(c);
         }
 
-        int[] sortedArr = new int[n];
-        for (int i = 0; i < n; i++) {
-            channel c = channels.get(i);
-            sortedArr[i] = c.readInt();
+        List<Integer> sortedNumbers = new ArrayList<>();
+
+        for (channel c : channels) {
+            sortedNumbers.add(c.readInt());
             c.close();
         }
 
+        System.out.println("Received " + sortedNumbers.size() + " numbers. Sorting completed.");
         System.out.println("Sorted array:");
-        for (int num : sortedArr) {
+        for (int num : sortedNumbers) {
             System.out.print(num + " ");
         }
         System.out.println();
-        
+
+        double totalTime = (double) (System.nanoTime() - startTime) / 1000000000;
+        System.out.println("Execution time: " + totalTime + " seconds");
+
         curtask.end();
     }
-}    
+}
