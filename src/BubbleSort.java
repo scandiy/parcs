@@ -4,11 +4,12 @@ public class BubbleSort implements AM {
     @Override
     public void run(AMInfo amInfo) {
         int[] array = (int[]) amInfo.parent.readObject();
+        int start = amInfo.parent.readInt();
+        int end = amInfo.parent.readInt();
 
         // Perform bubble sort on the received chunk of the array
         boolean sorted = true;
-        int n = array.length;
-        for (int i = 0; i < n - 1; i++) {
+        for (int i = start; i < end; i++) {
             if (array[i] > array[i + 1]) {
                 int temp = array[i];
                 array[i] = array[i + 1];
@@ -18,9 +19,8 @@ public class BubbleSort implements AM {
         }
 
         if (!sorted) {
-            int startIndex = (int) (amInfo.taskID().pointID() - 1) * (n - 1) / amInfo.getJob().getN();
             amInfo.parent.write(array);
-            amInfo.parent.write(startIndex);
+            amInfo.parent.write(start);
         } else {
             amInfo.parent.write(new int[0]);
         }
