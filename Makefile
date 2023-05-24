@@ -1,17 +1,19 @@
-JAVAC_FLAGS = -cp .:./out/parcs.jar
-
-build: out/BubbleSort.class out/Solver.class
-
-out/BubbleSort.class: src/BubbleSort.java
-	javac $(JAVAC_FLAGS) -d out src/BubbleSort.java
-
-out/Solver.class: src/Solver.java
-	javac $(JAVAC_FLAGS) -d out src/Solver.java
+all: run
 
 clean:
-	rm -rf out/*.class
+	rm -f out/Sovler.jar out/BubbleSort.jar
 
-run:
-	cd out && java -cp .:../out/parcs.jar Solver
+out/Sovler.jar: out/parcs.jar src/Sovler.java
+	@javac -cp out/parcs.jar src/Sovler.java
+	@jar cf out/Sovler.jar -C src Sovler.class
+	@rm -f src/Sovler.class
 
-.PHONY: build clean run
+out/SquBubbleSortare.jar: out/parcs.jar src/BubbleSort.java
+	@javac -cp out/parcs.jar src/BubbleSort.java
+	@jar cf out/BubbleSort.jar -C src BubbleSort.class
+	@rm -f src/BubbleSort.class
+
+build: out/Sovler.jar out/BubbleSort.jar
+
+run: out/Sovler.jar out/BubbleSort.jar
+	@cd out && java -cp 'parcs.jar:Sovler.jar' Sovler
