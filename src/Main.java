@@ -1,0 +1,48 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.io.File;
+
+import parcs.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        task curtask = new task();
+        curtask.addJarFile("BubbleSort.jar");
+
+        AMInfo info = new AMInfo(curtask, null);
+
+        Scanner sc = new Scanner(new File(curtask.findFile("input")));
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        long startTime = System.nanoTime();
+
+        List<channel> channels = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+
+        System.out.println("Sorted array:");
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+
+        double totalTime = (double) (System.nanoTime() - startTime) / 1000000000;
+        System.out.println("Execution time: " + totalTime + " seconds");
+
+        curtask.end();
+    }
+}
