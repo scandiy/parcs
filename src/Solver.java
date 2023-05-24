@@ -23,7 +23,7 @@ public class Solver implements AM {
         int[] array = generateRandomArray(n, min, max);
 
         // Perform parallel bubble sort
-        int workers = info.getN();
+        int workers = info.getTask().getCt();
         int chunkSize = (n - 1) / workers + 1;
         boolean sorted = false;
 
