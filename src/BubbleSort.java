@@ -7,9 +7,9 @@ public class BubbleSort implements AM {
     public void run(AMInfo info) {
         List<Integer> numbers = new ArrayList<>();
 
-        int number;
-        while ((number = info.parent.readInt()) != -1) {
-            numbers.add(number);
+        int[] arr = (int[]) info.parent.readObject();
+        for (int num : arr) {
+            numbers.add(num);
         }
 
         System.out.println("Received " + numbers.size() + " numbers. Sorting...");
@@ -34,5 +34,7 @@ public class BubbleSort implements AM {
         for (int sortedNum : numbers) {
             info.parent.write(sortedNum);
         }
+
+        info.parent.write(-1); // Signal the end of sorted numbers
     }
 }
