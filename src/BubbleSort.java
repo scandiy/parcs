@@ -24,5 +24,6 @@ public class BubbleSort implements AM {
         } else {
             amInfo.parent.write(new int[0]);
         }
+        amInfo.parent.write(null); // Write a placeholder object to unblock the readObject() call in Solver
     }
 }
