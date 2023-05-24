@@ -1,10 +1,10 @@
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 
 import parcs.*;
 
 public class BubbleSort implements AM {
-    
     public void run(AMInfo info) {
         int[] numbers = (int[]) info.parent.readObject();
 
@@ -25,5 +25,5 @@ public class BubbleSort implements AM {
 
         // Send the sorted array back to the parent point
         info.parent.write(numbers);
-}
+    }
 }
