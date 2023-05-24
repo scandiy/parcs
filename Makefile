@@ -8,7 +8,7 @@ out/Sovler.jar: out/parcs.jar src/Sovler.java
 	@jar cf out/Sovler.jar -C src Sovler.class
 	@rm -f src/Sovler.class
 
-out/SquBubbleSortare.jar: out/parcs.jar src/BubbleSort.java
+out/BubbleSort.jar: out/parcs.jar src/BubbleSort.java
 	@javac -cp out/parcs.jar src/BubbleSort.java
 	@jar cf out/BubbleSort.jar -C src BubbleSort.class
 	@rm -f src/BubbleSort.class
