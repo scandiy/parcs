@@ -22,19 +22,29 @@ public class Main {
 
         long startTime = System.nanoTime();
 
+        List<point> points = new ArrayList<>();
         List<channel> channels = new ArrayList<>();
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < info.cnt; i++) {
             point p = info.createPoint();
-            channel c = p.createChannel();
-            p.execute("BubbleSort");
-            c.write(arr[i]);
-            channels.add(c);
+            points.add(p);
+            channels.add(p.createChannel());
+        }
+
+        for (int i = 0; i < n; i++) {
+            int value = arr[i];
+            channel c = channels.get(i % info.cnt);
+            c.write(value);
+        }
+
+        for (channel c : channels) {
+            c.close();
         }
 
         List<Integer> sortedNumbers = new ArrayList<>();
 
-        for (channel c : channels) {
+        for (int i = 0; i < info.cnt; i++) {
+            channel c = points.get(i).createChannel();
             sortedNumbers.add(c.readInt());
             c.close();
         }
