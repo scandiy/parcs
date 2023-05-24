@@ -1,4 +1,4 @@
-JFLAGS = -cp .:./parcs.jar
+JFLAGS = -cp .:./out/parcs.jar
 SRC_DIR = src
 OUT_DIR = out
 
@@ -17,4 +17,6 @@ $(OUT_DIR)/Solver.jar: $(OUT_DIR)/parcs.jar $(SRC_DIR)/BubbleSort.java $(SRC_DIR
 build: $(OUT_DIR) $(OUT_DIR)/Solver.jar
 
 run: build
-	java $(JFLAGS) Solver
+	cd $(OUT_DIR) && java $(JFLAGS) Solver
+
+.PHONY: all clean build run
