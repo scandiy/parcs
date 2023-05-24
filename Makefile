@@ -1,18 +1,20 @@
 JFLAGS = -cp .:./parcs.jar
+SRC_DIR = src
+OUT_DIR = out
 
 all: run
 
 clean:
-	rm -rf out/
+	rm -rf $(OUT_DIR)
 
-out:
-	mkdir -p out
+$(OUT_DIR):
+	mkdir -p $(OUT_DIR)
 
-out/Solver.jar: out/parcs.jar src/BubbleSort.java src/Solver.java
-	javac $(JFLAGS) src/BubbleSort.java src/Solver.java
-	jar cf out/Solver.jar -C src BubbleSort.class Solver.class
+$(OUT_DIR)/Solver.jar: $(OUT_DIR)/parcs.jar $(SRC_DIR)/BubbleSort.java $(SRC_DIR)/Solver.java
+	javac $(JFLAGS) $(SRC_DIR)/BubbleSort.java $(SRC_DIR)/Solver.java
+	jar cf $(OUT_DIR)/Solver.jar -C $(SRC_DIR) BubbleSort.class Solver.class
 
-build: out out/Solver.jar
+build: $(OUT_DIR) $(OUT_DIR)/Solver.jar
 
 run: build
 	java $(JFLAGS) Solver
