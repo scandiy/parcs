@@ -12,7 +12,7 @@ public class Main {
 
         AMInfo info = new AMInfo(curtask, null);
 
-        Scanner sc = new Scanner(new File(curtask.findFile("input.txt")));
+        Scanner sc = new Scanner(new File(curtask.findFile("input")));
         int n = sc.nextInt();
         int[] arr = new int[n];
 
