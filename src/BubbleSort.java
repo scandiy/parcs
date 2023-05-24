@@ -5,37 +5,27 @@ import parcs.*;
 
 public class BubbleSort implements AM {
     public void run(AMInfo info) {
+        int number = info.parent.readInt();
         List<Integer> numbers = new ArrayList<>();
+        numbers.add(number);
 
-        int number;
-        while ((number = info.parent.readInt()) != -1) {
-            numbers.add(number);
-        }
+        System.out.println("Received number: " + number);
 
-        System.out.println("Received " + numbers.size() + " numbers. Sorting...");
-
-        boolean swapped;
-        int n = numbers.size();
-        do {
-            swapped = false;
-            for (int i = 0; i < n - 1; i++) {
-                if (numbers.get(i) > numbers.get(i + 1)) {
-                    int temp = numbers.get(i);
-                    numbers.set(i, numbers.get(i + 1));
-                    numbers.set(i + 1, temp);
-                    swapped = true;
+        // Sort the number using bubble sort
+        for (int i = 0; i < numbers.size() - 1; i++) {
+            for (int j = 0; j < numbers.size() - i - 1; j++) {
+                if (numbers.get(j) > numbers.get(j + 1)) {
+                    int temp = numbers.get(j);
+                    numbers.set(j, numbers.get(j + 1));
+                    numbers.set(j + 1, temp);
                 }
             }
-            n--;
-        } while (swapped);
-
-        System.out.println("Sorting completed. Sending sorted numbers.");
-
-        for (int sortedNum : numbers) {
-            info.parent.write(sortedNum);
         }
 
-        // Notify the parent point that the computation is done
-        info.parent.write(-1);
+        int sortedNumber = numbers.get(0);
+        System.out.println("Sorted number: " + sortedNumber);
+
+        // Send the sorted number back to the parent point
+        info.parent.write(sortedNumber);
     }
 }
