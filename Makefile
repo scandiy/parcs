@@ -1,24 +1,17 @@
 JAVAC_FLAGS = -cp .:./out/parcs.jar
-JAR_FLAGS = cf
-JAVA_FLAGS = -cp .:./out/parcs.jar:./out/Solver.jar
 
-all: build run
-
-clean:
-    rm -rf out/*.class out/*.jar
+build: out/BubbleSort.class out/Solver.class
 
 out/BubbleSort.class: src/BubbleSort.java
-    javac $(JAVAC_FLAGS) -d out src/BubbleSort.java
+	javac $(JAVAC_FLAGS) -d out src/BubbleSort.java
 
-out/Solver.class: src/Solver.java out/BubbleSort.class
-    javac $(JAVAC_FLAGS) -d out src/Solver.java
+out/Solver.class: src/Solver.java
+	javac $(JAVAC_FLAGS) -d out src/Solver.java
 
-out/Solver.jar: out/Solver.class
-    jar $(JAR_FLAGS) out/Solver.jar -C out Solver.class
+clean:
+	rm -rf out/*.class
 
-build: out/Solver.jar
+run:
+	cd out && java -cp .:../out/parcs.jar Solver
 
-run: out/Solver.jar
-    java $(JAVA_FLAGS) Solver
-
-.PHONY: all clean build run
+.PHONY: build clean run
