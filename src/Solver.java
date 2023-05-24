@@ -16,9 +16,9 @@ public class Solver implements AM {
     @Override
     public void run(AMInfo info) {
         // Read input
-        int n = 10; // Number of elements in the array
+        int n = 1000; // Number of elements in the array
         int min = 1; // Minimum value for random generation
-        int max = 100; // Maximum value for random generation
+        int max = 100000; // Maximum value for random generation
 
         int[] array = generateRandomArray(n, min, max);
 
