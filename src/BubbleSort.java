@@ -34,5 +34,8 @@ public class BubbleSort implements AM {
         for (int sortedNum : numbers) {
             info.parent.write(sortedNum);
         }
+
+        // Notify the parent point that the computation is done
+        info.parent.write(-1);
     }
 }
