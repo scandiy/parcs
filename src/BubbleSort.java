@@ -1,5 +1,5 @@
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import parcs.*;
 
@@ -7,9 +7,13 @@ public class BubbleSort implements AM {
     public void run(AMInfo info) {
         List<Integer> numbers = new ArrayList<>();
 
-        while (info.parent.available() > 0) {
-            int num = info.parent.readInt();
-            numbers.add(num);
+        while (true) {
+            try {
+                int num = info.parent.readInt();
+                numbers.add(num);
+            } catch (EOFException e) {
+                break;
+            }
         }
 
         System.out.println("Received " + numbers.size() + " numbers. Sorting...");
