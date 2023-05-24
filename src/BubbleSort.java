@@ -7,8 +7,8 @@ public class BubbleSort implements AM {
     public void run(AMInfo info) {
         List<Integer> numbers = new ArrayList<>();
 
-        while (info.parent.hasData()) {
-            int num = info.parent.readInt();
+        int num;
+        while ((num = info.parent.readInt()) != -1) {
             numbers.add(num);
         }
 
