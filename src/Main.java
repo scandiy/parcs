@@ -28,7 +28,7 @@ public class Main {
             point p = info.createPoint();
             channel c = p.createChannel();
             p.execute("BubbleSort");
-            c.write(arr[i]);
+            c.write(arr); // Send the array instead of individual numbers
             channels.add(c);
         }
 
