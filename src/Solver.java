@@ -87,8 +87,10 @@ public class Solver implements AM {
                     writer.write(" ");
                 }
             }
+            System.out.println("Array successfully written to file: " + filePath); // Debug statement
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }
