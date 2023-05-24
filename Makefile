@@ -22,6 +22,6 @@ $(OUT_DIR)/Solver.jar: $(OUT_DIR)/Solver.class
 build: $(OUT_DIR)/Solver.jar
 
 run: build
-	cd $(OUT_DIR) && java $(JFLAGS) Solver
+	cd $(OUT_DIR) && java $(JFLAGS) -cp ../parcs.jar:Solver.jar Solver
 
 .PHONY: all clean build run
