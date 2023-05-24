@@ -25,21 +25,17 @@ public class Main {
         List<channel> channels = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
-            point p = info.createPoint();
-            channel c = p.createChannel();
-            p.execute("BubbleSort");
-            c.write(arr); // Send the array instead of individual numbers
-            channels.add(c);
-        }
-
-        List<Integer> sortedNumbers = new ArrayList<>();
-
-        for (channel c : channels) {
-            sortedNumbers.add(c.readInt());
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
         }
 
         System.out.println("Sorted array:");
-        for (int num : sortedNumbers) {
+        for (int num : arr) {
             System.out.print(num + " ");
         }
         System.out.println();
