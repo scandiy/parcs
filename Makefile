@@ -1,27 +1,29 @@
-all: build
+JAR_FILES := out/BubbleSort.jar out/Solver.jar
 
+# Default target
+all: run
+
+# Clean target to remove generated files
 clean:
-	rm -f out/BubbleSort.jar out/Solver.jar
+	rm -rf out
 
-out/BubbleSort.jar: out/parcs.jar src/BubbleSort.java
-	@javac -cp out/parcs.jar src/BubbleSort.java
-	@jar cf out/BubbleSort.jar -C src BubbleSort.class
-	@rm -f src/BubbleSort.class
+# Build target to compile the source files and generate JAR files
+build: $(JAR_FILES)
 
-out/Solver.jar: out/parcs.jar src/Solver.java
-	@javac -cp out/parcs.jar src/Solver.java
-	@jar cf out/Solver.jar -C src Solver.class
-	@rm -f src/Solver.class
+# Run target to execute the program
+run: build
+	@cd out && java -cp 'parcs.jar:Solver.jar' Solver
 
-build: out/BubbleSort.jar out/Solver.jar
+# Compile the BubbleSort.java source file and generate BubbleSort.jar
+out/BubbleSort.jar: src/BubbleSort.java | out
+	@javac -d out $<
+	@jar cfe $@ BubbleSort -C out .
 
-run: out/BubbleSort.jar out/Solver.jar
-	@cd out && java -cp 'parcs.jar:BubbleSort.jar' Solver
+# Compile the Solver.java source file and generate Solver.jar
+out/Solver.jar: src/Solver.java out/BubbleSort.jar | out
+	@javac -cp out/BubbleSort.jar -d out $<
+	@jar cfe $@ Solver -C out .
 
-JFLAGS = -cp .:./parcs.jar
-
-compile:
-	javac $(JFLAGS) src/BubbleSort.java src/Solver.java
-
-run:
-	java $(JFLAGS) Solver
+# Create the 'out' directory if it doesn't exist
+out:
+	@mkdir -p out
