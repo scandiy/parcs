@@ -25,7 +25,7 @@ public class Main {
         List<point> points = new ArrayList<>();
         List<channel> channels = new ArrayList<>();
 
-        for (int i = 0; i < info.pointCount(); i++) {
+        for (int i = 0; i < info.nodesCount(); i++) {
             point p = info.createPoint();
             points.add(p);
             channels.add(p.createChannel());
@@ -33,7 +33,7 @@ public class Main {
 
         for (int i = 0; i < n; i++) {
             int value = arr[i];
-            channel c = channels.get(i % info.pointCount());
+            channel c = channels.get(i % info.nodesCount());
             c.write(value);
         }
 
@@ -43,7 +43,7 @@ public class Main {
 
         List<Integer> sortedNumbers = new ArrayList<>();
 
-        for (int i = 0; i < info.pointCount(); i++) {
+        for (int i = 0; i < info.nodesCount(); i++) {
             channel c = points.get(i).createChannel();
             sortedNumbers.add(c.readInt());
             c.close();
