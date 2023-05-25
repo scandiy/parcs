@@ -4,7 +4,7 @@ import java.util.*;
 
 import parcs.*;
 
-public class Solver implements AM {
+public class Main implements AM {
     public static void main(String[] args) {
         System.out.print("class Solver start method main\n");
 
