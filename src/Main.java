@@ -25,7 +25,7 @@ public class Main implements AM {
         long n, a, b;
 
         try {
-            BufferedReader in = new BufferedReader(new FileReader(info.curtask.findFile("input.txt")));
+            BufferedReader in = new BufferedReader(new FileReader(info.curtask.findFile("input")));
 
             n = new Long(in.readLine()).longValue();
             a = new Long(in.readLine()).longValue();
