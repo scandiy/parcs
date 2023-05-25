@@ -1,23 +1,19 @@
-import java.io.*;
-import java.math.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Random;
 
 import parcs.*;
 
 public class Main implements AM {
     public static void main(String[] args) {
-        System.out.print("class Solver start method main\n");
+        System.out.println("Starting the Bubble Sort program.");
 
         task mainTask = new task();
 
-        mainTask.addJarFile("Solver.jar");
         mainTask.addJarFile("BubbleSort.jar");
 
-        System.out.print("class Solver method main adder jars\n");
-
-        (new Main()).run(new AMInfo(mainTask, (channel) null));
-
-        System.out.print("class Solver method main finish work\n");
+        (new Main()).run(new AMInfo(mainTask, null));
 
         mainTask.end();
     }
@@ -28,16 +24,16 @@ public class Main implements AM {
         try {
             BufferedReader in = new BufferedReader(new FileReader(info.curtask.findFile("input")));
 
-            n = new Long(in.readLine()).longValue();
-            a = new Long(in.readLine()).longValue();
-            b = new Long(in.readLine()).longValue();
+            n = Long.parseLong(in.readLine());
+            a = Long.parseLong(in.readLine());
+            b = Long.parseLong(in.readLine());
         } catch (IOException e) {
-            System.out.print("Error while reading input\n");
+            System.out.println("Error while reading input.");
             e.printStackTrace();
             return;
         }
 
-        System.out.print("class Solver method run read data from file\n");
+        System.out.println("Generating array of size " + n + " with values between " + a + " and " + b + ".");
 
         long[] array = generateArray(n, a, b);
 
@@ -56,7 +52,7 @@ public class Main implements AM {
         System.out.println("Time: " + ((tEnd - tStart) / 1000000) + "ms");
     }
 
-    static public long[] generateArray(long n, long a, long b) {
+    public long[] generateArray(long n, long a, long b) {
         long[] array = new long[(int) n];
         Random rand = new Random();
 
@@ -67,10 +63,9 @@ public class Main implements AM {
         return array;
     }
 
-    static public long[] parallelBubbleSort(AMInfo info, long[] array) {
+    public long[] parallelBubbleSort(AMInfo info, long[] array) {
         int numWorkers = 2;
 
-        // Split the array into equal-sized chunks
         int chunkSize = array.length / numWorkers;
 
         List<point> points = new ArrayList<>();
@@ -96,17 +91,16 @@ public class Main implements AM {
 
         long[] sortedArray = new long[array.length];
         for (int i = 0; i < numWorkers; i++) {
-            int[] workerResult = (int[]) channels.get(i).readObject();
+            long[] workerResult = (long[]) channels.get(i).readObject();
             System.arraycopy(workerResult, 0, sortedArray, i * chunkSize, workerResult.length);
         }
 
-        // Merge the sorted chunks
         mergeSortedChunks(sortedArray, chunkSize);
 
         return sortedArray;
     }
 
-    static public void mergeSortedChunks(long[] array, int chunkSize) {
+    public void mergeSortedChunks(long[] array, int chunkSize) {
         int n = array.length;
 
         for (int i = chunkSize; i < n; i *= 2) {
@@ -119,7 +113,7 @@ public class Main implements AM {
         }
     }
 
-    static public void merge(long[] array, int left, int mid, int right) {
+    public void merge(long[] array, int left, int mid, int right) {
         int n1 = mid - left + 1;
         int n2 = right - mid;
 
@@ -155,9 +149,9 @@ public class Main implements AM {
         }
     }
 
-    static public void printArray(long[] array) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " ");
+    public void printArray(long[] array) {
+        for (long num : array) {
+            System.out.print(num + " ");
         }
         System.out.println();
     }
