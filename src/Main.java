@@ -117,6 +117,16 @@ public class Main implements AM {
         }
     }
 
+    public void run(AMInfo info) {
+        channel channel = info.parent.readChannel();
+        int[] partition = (int[]) channel.readObject();
+        int length = channel.readInt();
+
+        bubbleSort(partition, length);
+
+        channel.write(partition);
+    }
+
     private void bubbleSort(int[] arr, int length) {
         for (int i = 0; i < length - 1; i++) {
             for (int j = 0; j < length - i - 1; j++) {
