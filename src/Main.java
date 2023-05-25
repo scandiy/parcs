@@ -8,7 +8,6 @@ import parcs.*;
 public class Main {
     public static void main(String[] args) throws Exception {
         task curtask = new task();
-        curtask.addJarFile("Main.jar");
         curtask.addJarFile("BubbleSort.jar");
 
         AMInfo info = new AMInfo(curtask, null);
@@ -25,8 +24,10 @@ public class Main {
 
         List<channel> channels = new ArrayList<>();
 
-        // Divide the array into equal parts
-        int numDaemons = info.cores;
+        // Define the number of daemons
+        int numDaemons = 2; // Adjust the number of daemons as needed
+
+        // Calculate the partition size for each daemon
         int partitionSize = n / numDaemons;
 
         for (int i = 0; i < numDaemons; i++) {
@@ -65,8 +66,8 @@ public class Main {
             sortedArray[i] = sortedList.get(i);
         }
 
-        // Perform the final merge sort step on the sorted partitions
-        mergeSort(sortedArray);
+        // Perform the final bubble sort step on the sorted partitions
+        bubbleSort(sortedArray);
 
         System.out.println("Sorted array:");
         for (int num : sortedArray) {
@@ -80,46 +81,16 @@ public class Main {
         curtask.end();
     }
 
-    private static void mergeSort(int[] arr) {
-        if (arr.length > 1) {
-            int mid = arr.length / 2;
-            int[] left = new int[mid];
-            int[] right = new int[arr.length - mid];
-
-            System.arraycopy(arr, 0, left, 0, mid);
-            System.arraycopy(arr, mid, right, 0, arr.length - mid);
-
-            mergeSort(left);
-            mergeSort(right);
-
-            merge(arr, left, right);
-        }
-    }
-
-    private static void merge(int[] arr, int[] left, int[] right) {
-        int i = 0, j = 0, k = 0;
-
-        while (i < left.length && j < right.length) {
-            if (left[i] < right[j]) {
-                arr[k] = left[i];
-                i++;
-            } else {
-                arr[k] = right[j];
-                j++;
+    private static void bubbleSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
             }
-            k++;
-        }
-
-        while (i < left.length) {
-            arr[k] = left[i];
-            i++;
-            k++;
-        }
-
-        while (j < right.length) {
-            arr[k] = right[j];
-            j++;
-            k++;
         }
     }
 }
