@@ -6,7 +6,6 @@ import java.io.File;
 import parcs.*;
 
 public class Main implements AM {
-    private static final int CHUNK_SIZE = 1000;
 
     public static void main(String[] args) throws Exception {
         task curtask = new task();
@@ -27,7 +26,7 @@ public class Main implements AM {
 
         List<channel> channels = new ArrayList<>();
 
-        int numDaemons = info.cores;
+        int numDaemons = curtask.getCores();
         int chunkSize = n / numDaemons;
 
         for (int i = 0; i < numDaemons; i++) {
@@ -95,7 +94,7 @@ public class Main implements AM {
         int i = 0, j = 0, k = 0;
 
         while (i < left.length && j < right.length) {
-            if (left[i] < right[j]) {
+            if (left[i] <= right[j]) {
                 arr[k] = left[i];
                 i++;
             } else {
@@ -119,7 +118,7 @@ public class Main implements AM {
     }
 
     public void run(AMInfo info) {
-        channel channel = info.parent.readChannel();
+        channel channel = info.parent.readChannel("result");
         int[] partition = (int[]) channel.readObject();
         int length = channel.readInt();
 
