@@ -96,7 +96,7 @@ public class Main implements AM {
 
         long[] sortedArray = new long[array.length];
         for (int i = 0; i < numWorkers; i++) {
-            long[] workerResult = (long[]) channels.get(i).readObject();
+            int[] workerResult = (int[]) channels.get(i).readObject();
             System.arraycopy(workerResult, 0, sortedArray, i * chunkSize, workerResult.length);
         }
 
