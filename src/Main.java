@@ -26,7 +26,7 @@ public class Main implements AM {
 
         List<channel> channels = new ArrayList<>();
 
-        int numDaemons = curtask.getCores();
+        int numDaemons = 2;
         int chunkSize = n / numDaemons;
 
         for (int i = 0; i < numDaemons; i++) {
