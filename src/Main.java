@@ -118,7 +118,7 @@ public class Main implements AM {
     }
 
     public void run(AMInfo info) {
-        channel channel = info.parent.readChannel("result");
+        channel channel = info.parent.readChannel();
         int[] partition = (int[]) channel.readObject();
         int length = channel.readInt();
 
