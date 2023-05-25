@@ -8,6 +8,7 @@ import parcs.*;
 public class Main {
     public static void main(String[] args) throws Exception {
         task curtask = new task();
+        curtask.addJarFile("Main.jar");
         curtask.addJarFile("BubbleSort.jar");
 
         AMInfo info = new AMInfo(curtask, null);
