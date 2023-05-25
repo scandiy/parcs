@@ -15,35 +15,27 @@ public class Main {
         Scanner sc = new Scanner(new File(curtask.findFile("input")));
         int n = sc.nextInt();
         int[] arr = new int[n];
-
+        
         for (int i = 0; i < n; i++) {
             arr[i] = sc.nextInt();
         }
 
         long startTime = System.nanoTime();
 
-        point p = info.createPoint();
-        channel c = p.createChannel();
-        p.execute("BubbleSort");
-        c.write(arr);
-        channel resultChannel = p.createChannel();
-        p.getMonitor().addChannel(resultChannel);
+        List<channel> channels = new ArrayList<>();
 
-        p.execute("BubbleSort");
-        c.write(-1); // Signal the end of input numbers
-
-        List<Integer> sortedNumbers = new ArrayList<>();
-
-        while (true) {
-            int sortedNum = resultChannel.readInt();
-            if (sortedNum == -1) {
-                break; // Exit the loop when all numbers are received
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
             }
-            sortedNumbers.add(sortedNum);
         }
 
         System.out.println("Sorted array:");
-        for (int num : sortedNumbers) {
+        for (int num : arr) {
             System.out.print(num + " ");
         }
         System.out.println();
