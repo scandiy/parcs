@@ -68,7 +68,7 @@ public class Solver implements AM {
     }
 
     static public long[] parallelBubbleSort(AMInfo info, long[] array) {
-        int numWorkers = info.coresNum();
+        int numWorkers = 2;
 
         // Split the array into equal-sized chunks
         int chunkSize = array.length / numWorkers;
