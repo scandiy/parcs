@@ -5,10 +5,10 @@ import parcs.*;
 
 public class BubbleSort implements AM {
     public void run(AMInfo info) {
-        List<Integer> numbers = new ArrayList<>();
+        List<Long> numbers = new ArrayList<>();
 
-        int[] arr = (int[]) info.parent.readObject();
-        for (int num : arr) {
+        long[] arr = (long[]) info.parent.readObject();
+        for (long num : arr) {
             numbers.add(num);
         }
 
@@ -20,7 +20,7 @@ public class BubbleSort implements AM {
             swapped = false;
             for (int i = 0; i < n - 1; i++) {
                 if (numbers.get(i) > numbers.get(i + 1)) {
-                    int temp = numbers.get(i);
+                    long temp = numbers.get(i);
                     numbers.set(i, numbers.get(i + 1));
                     numbers.set(i + 1, temp);
                     swapped = true;
@@ -31,7 +31,7 @@ public class BubbleSort implements AM {
 
         System.out.println("Sorting completed. Sending sorted numbers.");
 
-        for (int sortedNum : numbers) {
+        for (long sortedNum : numbers) {
             info.parent.write(sortedNum);
         }
 
