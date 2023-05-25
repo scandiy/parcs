@@ -15,7 +15,7 @@ public class Main implements AM {
 
         System.out.print("class Solver method main adder jars\n");
 
-        (new Solver()).run(new AMInfo(mainTask, (channel) null));
+        (new Main()).run(new AMInfo(mainTask, (channel) null));
 
         System.out.print("class Solver method main finish work\n");
 
