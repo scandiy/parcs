@@ -9,8 +9,8 @@ public class Main implements AM {
 
         task mainTask = new task();
 
-        mainTask.addJarFile("Solver.jar");
-        mainTask.addJarFile("Count.jar");
+        mainTask.addJarFile("Main.jar");
+        mainTask.addJarFile("BubbleSort.jar");
 
         System.out.print("class Solver method main adder jars\n");
 
