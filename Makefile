@@ -16,4 +16,4 @@ out/BubbleSort.jar: out/parcs.jar src/BubbleSort.java
 build: out/Main.jar out/BubbleSort.jar
 
 run: out/Main.jar out/BubbleSort.jar
-	@cd out && java -cp 'parcs.jar:Main.jar' Main
+	@cd out && java -cp 'BubbleSort.jar:Main.jar' Main
