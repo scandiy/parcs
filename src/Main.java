@@ -16,8 +16,8 @@ public class Main implements AM {
 
         mainTask.addJarFile("BubbleSort.jar");
 
-        (new Main()).run(new AMInfo(mainTask, (channel)null));
-
+        (new Main()).run(new AMInfo(mainTask, null));
+        
         mainTask.end();
     }
 
